@@ -24,20 +24,22 @@ class setArr
 		bool operator <= (setArr& object);
 };
 
-setArr::setArr() : size(100) { table = new bool[size](); }
+setArr::setArr() : size() { table = new bool[universeSize + 1](); }
 
 bool setArr::checkRangeCorrectness(int x) {
-	return x > 0 && x < universeSize;
+	return x > 0 && x <= universeSize;
 }
 
 void setArr::insert(int x) {
 	if (!checkRangeCorrectness(x) || isInSet(x)) return;
 	table[x] = true;
+	size++;
 }
 
 void setArr::withdraw(int x) {
 	if (!checkRangeCorrectness(x) || !isInSet(x)) return;
 	table[x] = false;
+	size--;
 }
 
 bool setArr::isInSet(int i) {
@@ -49,38 +51,38 @@ int setArr::getSize() {
 }
 
 void setArr::clearSet() {
-	for (int i = 0; i < size; ++i) table[i] = false;
+	for (int i = 0; i <= universeSize; ++i) table[i] = false;
 }
 
 void setArr::printSet() {
-	for (int i = 0; i < size; ++i) if (table[i]) std::cout << i << std::endl;
+	for (int i = 0; i <= universeSize; ++i) if (table[i]) std::cout << i << std::endl;
 }
 
 setArr setArr::operator+(setArr& object) {
 	setArr sum;
-	for (int i = 0; i < size; ++i) if (table[i] || object.isInSet(i)) sum.insert(i);
+	for (int i = 0; i <= universeSize; ++i) if (table[i] || object.isInSet(i)) sum.insert(i);
 	return sum;
 }
 
 setArr setArr::operator*(setArr& object) {
 	setArr intersection;
-	for (int i = 0; i < size; ++i) if (table[i] && object.isInSet(i)) intersection.insert(i); 
+	for (int i = 0; i <= universeSize; ++i) if (table[i] && object.isInSet(i)) intersection.insert(i); 
 	return intersection;
 }
 
 setArr setArr::operator-(setArr& object) {
 	setArr difference;
-	for (int i = 0; i < size; ++i) if (table[i] && !object.isInSet(i)) difference.insert(i); 
+	for (int i = 0; i <= universeSize; ++i) if (table[i] && !object.isInSet(i)) difference.insert(i); 
 	return difference;
 }
 
 bool setArr::operator==(setArr& object) {
-	for (int i = 0; i < size; ++i) if (table[i] != object.isInSet(i)) return false;
+	for (int i = 0; i <= universeSize; ++i) if (table[i] != object.isInSet(i)) return false;
 	return true; 
 }
 
 bool setArr::operator<=(setArr& object) {
-	for (int i = 0; i < size; ++i) if (table[i] && !object.isInSet(i)) return false;
+	for (int i = 0; i <= universeSize; ++i) if (table[i] && !object.isInSet(i)) return false;
 	return true; 
 }
 
