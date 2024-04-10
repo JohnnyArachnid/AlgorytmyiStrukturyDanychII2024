@@ -97,4 +97,3 @@ void Graf::readFromFile(std::string path) {
         Graf::addEdge(edge1,edge2); 
     }
 }
-
