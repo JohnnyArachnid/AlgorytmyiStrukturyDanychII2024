@@ -1,4 +1,4 @@
-//Autor: Daniel Szarek
+// Autor: Daniel Szarek
 
 #include <iostream>
 #include <fstream>
